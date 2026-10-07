@@ -445,8 +445,8 @@ h1,h2,h3,h4{color:var(--ink)}
 .sec-note b{color:#b0493a}
 .phone{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;margin:6px 0 30px;padding:18px;border:1px solid var(--line);border-radius:2px;background:#fff}
 .phone img{width:260px;max-width:100%;border-radius:2px;border:1px solid var(--line);display:block}
-.phone .cap{flex:1;min-width:200px;font-size:15px;line-height:1.7}
-.phone .cap b{display:block;font-size:16px;margin-bottom:4px;color:var(--ink)}
+.phone .pcap{flex:1;min-width:200px;font-size:14.5px;line-height:1.7;color:var(--ink)}
+.phone .ptit{display:block;font-size:15px;font-weight:700;line-height:1.45;margin-bottom:6px;color:var(--ink);word-break:keep-all;overflow-wrap:break-word}
 .phone .tag{display:inline-block;font-size:12.5px;padding:2px 8px;border-radius:2px;background:var(--soft);color:var(--accent);font-weight:600;margin-bottom:8px}
 </style>
 
@@ -561,7 +561,7 @@ function steps(root,slides,opts){root.innerHTML=slides.map((x,k)=>`<div class="s
  const blks=[...root.querySelectorAll('.stepblk')];
  slides.forEach((x,k)=>viewer(blks[k],[x],Object.assign({},opts,{onDone:opts.follow?()=>{const n=blks[k+1];if(n)n.scrollIntoView({behavior:'smooth',block:'start'})}:null})));}
 
-$('#body').innerHTML=SL.map((s,i)=>`<section class="sec" id="s${i}"><h3>${esc(s.sec)}</h3>${s.note?`<div class="sec-note">${s.note}</div>`:''}${s.items.map(x=>x.phone?`<div class="phone"><img src="img/${x.phone}.jpg" alt="${esc(x.title)}" loading="lazy"><div class="cap"><span class="tag">${esc(x.tag)}</span><b>${esc(x.title)}</b>${esc(x.text)}</div></div>`:`<div class="slide stepblk" data-p="${x.p}"><div class="vw"></div></div>`).join('')}</section>`).join('');
+$('#body').innerHTML=SL.map((s,i)=>`<section class="sec" id="s${i}"><h3>${esc(s.sec)}</h3>${s.note?`<div class="sec-note">${s.note}</div>`:''}${s.items.map(x=>x.phone?`<div class="phone"><img src="img/${x.phone}.jpg" alt="${esc(x.title)}" loading="lazy"><div class="pcap"><span class="tag">${esc(x.tag)}</span><span class="ptit">${esc(x.title)}</span>${esc(x.text)}</div></div>`:`<div class="slide stepblk" data-p="${x.p}"><div class="vw"></div></div>`).join('')}</section>`).join('');
 const all=[];SL.forEach(s=>s.items.forEach(x=>{if(x.p)all.push(x)}));
 const blks=$$('#body .slide');
 blks.forEach((b,k)=>{const x=all[k];viewer(b.querySelector('.vw'),[{p:x.p,code:x.code,t:x.t,ck:'',pins:x.pins}],{follow:true,onDone:()=>{const n=blks[k+1];if(n)n.scrollIntoView({behavior:'smooth',block:'start'})}})});
